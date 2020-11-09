@@ -10,12 +10,13 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
+    @Column(name = "name")
     private String name;
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-    public Role() {
-    }
+
+    public Role() {}
 
     public Role(String roleName) {
         if (roleName.equals("ADMIN")) {
@@ -25,15 +26,15 @@ public class Role implements GrantedAuthority {
         }
         this.name = roleName;
     }
-
-    public Role(Long id) {
-        this.id = id;
-    }
-
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//
+//    public Role(Long id) {
+//        this.id = id;
+//    }
+//
+//    public Role(Long id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 
     public Long getId() {
         return id;

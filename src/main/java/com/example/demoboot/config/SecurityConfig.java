@@ -19,10 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userServiceImp;
 
-    private final LoginSuccessHandler loginSuccessHandler;
+    private final SuccessUserHandler loginSuccessHandler;
 
     @Autowired
-    public SecurityConfig(@Qualifier("userServiceImp") UserDetailsService userServiceImp, LoginSuccessHandler loginSuccessHandler) {
+    public SecurityConfig(@Qualifier("userServiceImp") UserDetailsService userServiceImp, SuccessUserHandler loginSuccessHandler) {
         this.userServiceImp = userServiceImp;
         this.loginSuccessHandler = loginSuccessHandler;
     }
@@ -37,9 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll() // доступность всем
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/editUser**").hasAuthority("ADMIN")
+                .antMatchers("/").hasAuthority("ADMIN")
                 .antMatchers("/userpage").hasAuthority("USER")
                 .and().formLogin()
                 .permitAll()

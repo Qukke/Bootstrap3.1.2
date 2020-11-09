@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -69,8 +70,18 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+
+    public void setRoles(String roles) {
+        this.roles = new HashSet<>();
+        if (roles.contains("ADMIN")) {
+            this.roles.add(new Role("ADMIN"));
+        }
+        if (roles.contains("USER")) {
+            this.roles.add(new Role("USER"));
+        }
     }
 
     public void setName(String firstName) {
